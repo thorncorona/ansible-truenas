@@ -1,0 +1,73 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: pip install ruff ansible-core ansible-lint
+
+      - name: Ruff check
+        run: ruff check plugins/
+
+      - name: Ansible Lint
+        run: ansible-lint
+
+  unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: ansible_collections/arensb/truenas
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: pip install ansible-core pytest pytest-mock packaging
+
+      - name: Run unit tests
+        run: python -m pytest tests/unit/ -v
+        working-directory: ansible_collections/arensb/truenas
+
+  build:
+    name: Build Collection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install Ansible
+        run: pip install ansible-core
+
+      - name: Build collection tarball
+        run: ansible-galaxy collection build --force
+
+      - name: Verify tarball was created
+        run: ls -la arensb-truenas-*.tar.gz

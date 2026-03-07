@@ -21,7 +21,6 @@ This module adds support for midclt on TrueNAS.
 import subprocess
 import json
 from json.decoder import JSONDecodeError
-from ..module_utils import exceptions
 from ..module_utils.exceptions \
     import MethodNotFoundError as AnsibleMethodNotFoundError
 
@@ -44,7 +43,7 @@ class MidcltError(Exception):
         self.exception = exception
 
     def __str__(self):
-        return f'{self.error}: {repr(self.value)}'
+        return f'{self.error}: {self.value!r}'
 
 
 class Midclt:
