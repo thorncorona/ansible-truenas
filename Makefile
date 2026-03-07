@@ -95,3 +95,27 @@ update-doc-site:	documentation
 lint::
 	$(PYTHON) -m py_compile \
 		plugins/*/*.py
+
+# Run the full lint suite (yamllint, flake8, ansible-lint)
+lint-full::
+	yamllint .
+	flake8 plugins/
+	ansible-lint
+
+# Run unit tests
+test::	compatibility-link
+	$(PYTHON) -m pytest tests/unit/ -v
+
+# Run unit tests with coverage report
+test-cov::	compatibility-link
+	$(PYTHON) -m pytest tests/unit/ -v --cov=plugins/ --cov-report=term-missing
+
+# Run all CI checks locally
+ci::	lint lint-full test
+	@echo "All CI checks passed."
+
+clean::
+	${RM} -r tests/unit/__pycache__
+	${RM} -r tests/unit/plugins/__pycache__
+	${RM} -r tests/unit/plugins/module_utils/__pycache__
+	${RM} -r .pytest_cache

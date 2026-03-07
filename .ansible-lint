@@ -1,0 +1,17 @@
+---
+profile: production
+
+exclude_paths:
+  - changelogs/
+  - docs/
+  - venv-docs/
+  - tests/
+
+# Ansible collection structure
+kinds:
+  - galaxy: galaxy.yml
+
+skip_list:
+  # These are common in collection modules and expected
+  - meta-no-info
+  - galaxy[no-changelog]
