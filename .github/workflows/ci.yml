@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.15"
+          python-version: "3.14"
 
       - name: Install dependencies
         run: pip install ruff ansible-core ansible-lint
@@ -42,7 +42,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.15"
+          python-version: "3.14"
 
       - name: Install dependencies
         run: pip install ansible-core pytest pytest-mock packaging
@@ -61,7 +61,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.15"
+          python-version: "3.14"
 
       - name: Install Ansible
         run: pip install ansible-core
