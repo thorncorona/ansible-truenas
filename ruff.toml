@@ -1,0 +1,12 @@
+line-length = 160
+
+[lint]
+select = ["E", "F", "W"]
+# E402: module level import not at top of file (common in Ansible modules)
+ignore = ["E402"]
+
+exclude = [
+    "docs",
+    "venv-docs",
+    "changelogs",
+]

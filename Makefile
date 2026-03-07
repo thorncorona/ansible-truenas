@@ -96,10 +96,9 @@ lint::
 	$(PYTHON) -m py_compile \
 		plugins/*/*.py
 
-# Run the full lint suite (yamllint, flake8, ansible-lint)
+# Run the full lint suite (ruff, ansible-lint)
 lint-full::
-	yamllint .
-	flake8 plugins/
+	ruff check plugins/
 	ansible-lint
 
 # Run unit tests
