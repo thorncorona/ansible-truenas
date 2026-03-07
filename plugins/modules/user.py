@@ -264,11 +264,11 @@ def main():
     # Having an 'old_sudo' variable will make it easier to get rid of
     # this code when the world has upgraded.
     old_sudo_api = True
-    if tn_version['name'] == "TrueNAS" and \
+    if (tn_version['name'] == "TrueNAS" and \
        tn_version['type'] in {"SCALE", "COMMUNITY_EDITION"} and \
        \
        (tn_version['version'] >= version.parse("12.12") and
-        tn_version['version'] < version.parse("13")) \
+        tn_version['version'] < version.parse("13"))) \
        or \
        (tn_version['version'] >= version.parse("22.12.1") and
         tn_version['version'] < version.parse("23")) \
